@@ -1,0 +1,120 @@
+pragma solidity ^0.8.0;
+
+contract ETH/USDT {
+  uint256 ether;
+  uint256 USDT;
+  uint256 priceOfEther = 2800 USDT;
+  mapping(uint=>address)holderBalance;
+  
+  constructor public () {
+      
+}
+function swap(uint amtOfEther ) public view returns(uint) {
+  require(holderBalance[msg.sender] <= 1 USDT,"you dont have enough USDT ");
+  uint amtOfEther = USDT/priceOfEther;
+  uint balanceInUSDT = USDT - (amtOfEther * priceOfEther);
+  holderBalance[msg.sender] += ether;
+  msg.sender.transfer(USDT);
+  return(amtOfEther);
+}
+
+function getBalance() public view returns(uint balance) {
+  return holderBalance[msg.sender];
+} 
+
+function transferCrypto(address to) public view {
+  require(address!=to,"you cant send tokens to yourself");
+  require((holderBalance[msg.sender]<=0.01 ether,"you dont have enough ether to send")!!(holderBalance[msg.sender]<=20 USDT,"you dont have enough usdt to send"));
+      
+        holderBalance[msg.sender] -= ether;
+        holderBalance[msg.sender] -= USDT;
+        holderBalance[to] += ether;
+        holderBalance[to] += USDT;
+}
+}
+
+contract ETH/DAI {
+  uint256 ether;
+  uint256 DAI;
+  uint256 priceOfEther = 2800 DAI;
+  mapping(uint=>address)holderBalance;
+  
+  constructor public () {
+      
+}
+function swap(uint amtOfDAI,uint amtOfEther) public view returns(uint) {
+  require(holderBalance[msg.sender] <= 1 DAI,"you dont have enough DAI ");
+  amtOfEther = DAI/priceOfEther;
+  uint balanceInDAI = DAI - (amtOfDAI * priceOfEther);
+  holderBalance[msg.sender] += ether;
+  msg.sender.transfer(DAI);
+  return(amtOfEther);
+}
+
+function getBalance() public view returns(uint balance) {
+  return holderBalance[msg.sender];
+} 
+
+function transferCrypto(address to) public view {
+  require(address!=to,"you cant send tokens to yourself");
+  require((holderBalance[msg.sender]<=0.01 ether,"you dont have enough ether to send")!!(holderBalance[msg.sender]<=20 DAI,"you dont have enough DAI to send"));
+      
+        holderBalance[msg.sender] -= ether;
+        holderBalance[msg.sender] -= DAI;
+        holderBalance[to] += ether;
+        holderBalance[to] += DAI;
+}
+}
+contract ETH/USDT Liquidity {
+  uint256 ether;
+  uint256 USDT;
+  mapping(uint => address)holderBalance;
+  uint256 reward;
+  function Liquidity() public returns(uint) {
+  require(holderBalance[msg.sender]<=0.001 ether,"you dont have enough ether for Liquidity");
+  require(holderBalance[msg.sender]<= 1 USDT,"you dont have enough USDT for Liquidity");
+  address = smartContractLiquidity;
+        holderBalance[msg.sender] -= ether;
+        holderBalance[msg.sender] -= USDT;
+        holderBalance[smartContractLiquidity] += ether;
+        holderBalance[smartContractLiquidity] += USDT;  
+ 
+ reward = msg.value * 2/100;
+ return reward;
+}
+ 
+  function getBackFunds() public view {
+       holderBalance[smartContractLiquidity] -= ether + reward;
+        holderBalance[smartContractLiquidity] -= USDT;  
+        holderBalance[msg.sender] += msg.value + reward;
+        holderBalance[msg.sender] = USDT; 
+  }
+  
+}
+
+contract ETH/DAI Liquidity {
+  uint256 ether;
+  uint256 DAI;
+  mapping(uint => address)holderBalance;
+  uint256 reward;
+  function Liquidity() public returns(uint) {
+  require(holderBalance[msg.sender]<=0.001 ether,"you dont have enough ether for Liquidity");
+  require(holderBalance[msg.sender]<= 1 DAI,"you dont have enough USDT for Liquidity");
+  address = smartContractLiquidity;
+        holderBalance[msg.sender] -= ether;
+        holderBalance[msg.sender] -= DAI;
+        holderBalance[smartContractLiquidity] += ether;
+        holderBalance[smartContractLiquidity] += DAI;  
+ 
+ reward = msg.value * 2/100;
+ return reward;
+}
+ 
+  function getBackFunds() public view {
+       holderBalance[smartContractLiquidity] -= msg.value + reward;
+        holderBalance[smartContractLiquidity] -= DAI;  
+        holderBalance[msg.sender] += ether + reward;
+        holderBalance[msg.sender] = DAI; 
+  }
+}
+    
